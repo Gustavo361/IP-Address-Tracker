@@ -6,7 +6,7 @@
 //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
 // }).addTo(map);
 
-
+const API_KEY = at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz
 
 document.addEventListener('DOMContentLoaded', function () {
 
