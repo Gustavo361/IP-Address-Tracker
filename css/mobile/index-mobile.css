@@ -17,7 +17,8 @@
 }
 
 body {
-    font-family: var(--font-family);
+    /* font-family: var(--font-family); */
+    font-family: var('Rubik', sans-serif);
 }
 
 header {
@@ -25,7 +26,7 @@ header {
     background-image: url(../../images/pattern-bg-mobile.png);
     background-repeat: no-repeat;
     background-size: cover;
-    text-align: center;
+    text-align: center;font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos {
@@ -36,7 +37,7 @@ header div#tracker-infos {
     top: 3.6%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
+    z-index: 2;font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos h1 {
@@ -46,7 +47,7 @@ header div#tracker-infos h1 {
     color: white;
     /* tirar as medidas de todas as outras telas e ajustar a melhor medida vertical aqui */
     margin-top: clamp(20px, 5vw, 26px);
-    margin-bottom: clamp(20px, 5vw, 26px);
+    margin-bottom: clamp(20px, 5vw, 26px);font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos {
@@ -93,7 +94,9 @@ header div#tracker-infos #tracker button {
     width: 16%;
     display: grid;
     place-items: center;
-    background-color: var(--very-dark-grey);
+    /* background-color: var(--very-dark-grey); */
+    /* background-color: hsl(0, 0%, 17%); */
+    background-color: red;
     cursor: pointer;
 }
 

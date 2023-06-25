@@ -1,12 +1,4 @@
-// // Crie um mapa Leaflet e defina suas configurações iniciais
-// var map = L.map('map').setView([51.505, -0.09], 13);
 
-// // Adicione uma camada de mapeamento de sua escolha, como OpenStreetMap
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-// }).addTo(map);
-
-const API_KEY = at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz
 
 document.addEventListener('DOMContentLoaded', function () {
 
