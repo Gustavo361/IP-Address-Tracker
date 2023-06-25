@@ -1,52 +1,102 @@
 
+// ----------------------------------------
+// document.addEventListener('DOMContentLoaded', function () {
 
-document.addEventListener('DOMContentLoaded', function () {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(
+//       function (position) {
+//         const latitude = position.coords.latitude;
+//         const longitude = position.coords.longitude;
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+//         console.log("Latitude:", latitude);
+//         console.log("Longitude:", longitude);
 
-        console.log("Latitude:", latitude);
-        console.log("Longitude:", longitude);
+//         // Faça algo com os valores de latitude e longitude aqui
+//         let map = L.map('map').setView([latitude, longitude], 20);
+//         let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
+//         let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
 
-        // Faça algo com os valores de latitude e longitude aqui
-        let map = L.map('map').setView([latitude, longitude], 20);
-        let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
-        let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
+//         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+//         }).addTo(map);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-        }).addTo(map);
+//         let customIcon = L.icon({
+//           iconUrl: '../images/icon-location.svg',
+//           iconSize: [32, 40],
+//           iconAnchor: [10, 41],
+//           popupAnchor: [2, -40]
+//         });
 
-        let customIcon = L.icon({
-          iconUrl: '../images/icon-location.svg',
-          iconSize: [32, 40],
-          iconAnchor: [10, 41],
-          popupAnchor: [2, -40]
-        });
+//         // Exemplo de uso do ícone personalizado em um marcador
+//         L.marker([51.505, -0.09], { icon: customIcon }).addTo(map);
 
-        // Exemplo de uso do ícone personalizado em um marcador
-        L.marker([51.505, -0.09], { icon: customIcon }).addTo(map);
+//         zoomInButton.tabIndex = 3;
+//         zoomOutButton.tabIndex = 4;
+//       },
+//       function (error) {
+//         console.log("Ocorreu um erro ao obter a localização:", error);
+//         map = L.map('map').setView([40.7128, -74.0060], 13);
 
-        zoomInButton.tabIndex = 3;
-        zoomOutButton.tabIndex = 4;
-      },
-      function (error) {
-        console.log("Ocorreu um erro ao obter a localização:", error);
-        map = L.map('map').setView([40.7128, -74.0060], 13);
+//       }
+//     );
+//   } else {
+//     console.log("Geolocalização não suportada pelo navegador");
+//     map = L.map('map').setView([40.7128, -74.0060], 1);
 
-      }
-    );
-  } else {
-    console.log("Geolocalização não suportada pelo navegador");
-    map = L.map('map').setView([40.7128, -74.0060], 1);
+//   }
 
+
+// });
+// ----------------------------------------
+
+
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
+    const position = await getPosition();
+    const { latitude, longitude } = position.coords;
+
+    console.log("Latitude:", latitude);
+    console.log("Longitude:", longitude);
+
+    let map = L.map('map').setView([latitude, longitude], 20);
+    let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
+    let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    let customIcon = L.icon({
+      iconUrl: '../images/icon-location.svg',
+      iconSize: [32, 40],
+      iconAnchor: [10, 41],
+      popupAnchor: [2, -40]
+    });
+
+    L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
+
+    zoomInButton.tabIndex = 3;
+    zoomOutButton.tabIndex = 4;
+  } catch (error) {
+    console.log("Ocorreu um erro ao obter a localização:", error);
+    let map = L.map('map').setView([40.7128, -74.0060], 13);
   }
-
-
 });
+
+function getPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+
+
+
+
+
+
+
+
 
 // document.addEventListener('DOMContentLoaded', function () {
 //   let map = L.map('map').setView([40.7128, -74.0060], 13); //ny here
@@ -91,6 +141,13 @@ document.addEventListener('DOMContentLoaded', function () {
 //   zoomInButton.tabIndex = 3;
 //   zoomOutButton.tabIndex = 4;
 // });
+
+
+
+
+
+
+
 
 // ---------------------------------------- 
 // document.addEventListener('DOMContentLoaded', function () {
