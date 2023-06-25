@@ -92,8 +92,65 @@ document.addEventListener('DOMContentLoaded', function () {
 //   zoomOutButton.tabIndex = 4;
 // });
 
-document.addEventListener('DOMContentLoaded', function () {
-  let map = L.map('map').setView([40.7128, -74.0060], 13); //ny here
+// ---------------------------------------- 
+// document.addEventListener('DOMContentLoaded', function () {
+//   let map = L.map('map').setView([40.7128, -74.0060], 13); //ny here
+//   let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
+//   let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
+
+//   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+//   }).addTo(map);
+
+//   let customIcon = L.icon({
+//     iconUrl: '../images/icon-location.svg',
+//     iconSize: [32, 40],
+//     iconAnchor: [10, 41],
+//     popupAnchor: [2, -40]
+//   });
+
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(
+//       function (position) {
+//         const latitude = position.coords.latitude;
+//         const longitude = position.coords.longitude;
+
+//         console.log("Latitude:", latitude);
+//         console.log("Longitude:", longitude);
+
+//         // Define a visualização do mapa com base na localização atual
+//         map.setView([latitude, longitude], 20);
+
+//         // Exemplo de uso do ícone personalizado em um marcador
+//         L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
+//       },
+//       function (error) {
+//         console.log("Ocorreu um erro ao obter a localização:", error);
+
+//         // Define a visualização do mapa com base em Nova York
+//         map.setView([40.7128, -74.0060], 20);
+
+//         // Exemplo de uso do ícone personalizado em um marcador
+//         L.marker([40.7128, -74.0060], { icon: customIcon }).addTo(map);
+//       }
+//     );
+//   } else {
+//     console.log("Geolocalização não suportada pelo navegador");
+
+//     // Define a visualização do mapa com base em Nova York
+//     map.setView([40.7128, -74.0060], 13);
+
+//     // Exemplo de uso do ícone personalizado em um marcador
+//     L.marker([40.7128, -74.0060], { icon: customIcon }).addTo(map);
+//   }
+
+//   zoomInButton.tabIndex = 3;
+//   zoomOutButton.tabIndex = 4;
+// });
+// ---------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', async function () {
+  let map = L.map('map').setView([40.7128, -74.0060], 13);
   let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
   let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
 
@@ -108,44 +165,33 @@ document.addEventListener('DOMContentLoaded', function () {
     popupAnchor: [2, -40]
   });
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+  try {
+    const position = await getCurrentPosition();
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
 
-        console.log("Latitude:", latitude);
-        console.log("Longitude:", longitude);
+    console.log("Latitude:", latitude);
+    console.log("Longitude:", longitude);
 
-        // Define a visualização do mapa com base na localização atual
-        map.setView([latitude, longitude], 20);
+    map.setView([latitude, longitude], 20);
 
-        // Exemplo de uso do ícone personalizado em um marcador
-        L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
-      },
-      function (error) {
-        console.log("Ocorreu um erro ao obter a localização:", error);
-
-        // Define a visualização do mapa com base em Nova York
-        map.setView([40.7128, -74.0060], 20);
-
-        // Exemplo de uso do ícone personalizado em um marcador
-        L.marker([40.7128, -74.0060], { icon: customIcon }).addTo(map);
-      }
-    );
-  } else {
-    console.log("Geolocalização não suportada pelo navegador");
-
-    // Define a visualização do mapa com base em Nova York
-    map.setView([40.7128, -74.0060], 13);
-
-    // Exemplo de uso do ícone personalizado em um marcador
+    L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
+  } catch (error) {
+    console.log("Ocorreu um erro ao obter a localização:", error);
+    map.setView([40.7128, -74.0060], 20);
     L.marker([40.7128, -74.0060], { icon: customIcon }).addTo(map);
   }
 
   zoomInButton.tabIndex = 3;
   zoomOutButton.tabIndex = 4;
 });
+
+function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
 
 
 //   Seus usuários devem ser capazes de:
