@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://geo.ipify.org" crossorigin>
+    <link rel="stylesheet" href="css/mobile/index-mobile.css">
+    <link rel="stylesheet" href="css/tablet/tablet-mobile.css">
+    <link rel="stylesheet" href="css/desktop/desktop-769px—1024px.css">
+    <link rel="stylesheet" href="css/desktop/desktop-1025px—1200px.css">
+    <link rel="stylesheet" href="teste.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <title>IP Adress Tracker</title>
+</head>
+
+<body>
+    <header>
+        <div id="tracker-infos">
+            <h1>IP Address Tracker</h1>
+            <form id="tracker">
+                <input type="text" data-track-input placeholder="Search for any IP address or domain" tabindex="1">
+                <button type="submit" data-track-btn tabindex="2">
+                    <img src="images/icon-arrow.svg" alt="right-arrow-to-search">
+                </button>
+            </form>
+            <section id="location-infos">
+                <article class="location-info">
+                    <h3>IP ADDRESS</h3>
+                    <span data-IP></span>
+                </article>
+                <article class="location-info">
+                    <h3>LOCATION</h3>
+                    <!-- <span data-location-country> <span data-location-region>region</span></span> -->
+                    <span data-location>datalocation</span>
+                </article>
+                <article class="location-info">
+                    <h3>TIMEZONE</h3>
+                    <span>UTC <span data-timezone></span></span>
+                </article>
+                <article class="location-info">
+                    <h3>ISP</h3>
+                    <span data-ISP></span>
+                </article>
+            </section>
+        </div>
+    </header>
+    <div id="map"></div>
+</body>
+<script defer src="js/index.js"></script>
+
+</html>
