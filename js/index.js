@@ -1,4 +1,4 @@
-const API_KEY = at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz
+
 
 document.addEventListener('DOMContentLoaded', function () {
 
