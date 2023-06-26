@@ -44,6 +44,7 @@ header div#tracker-infos h1 {
     margin-bottom: 8%;
     font-size: clamp(20px, 2.5vw, 32px);
     font-weight: var(--weight-regular);
+    font-family: var('Rubik', sans-serif);
     color: white;
     /* tirar as medidas de todas as outras telas e ajustar a melhor medida vertical aqui */
     margin-top: clamp(20px, 5vw, 26px);
@@ -59,6 +60,7 @@ header div#tracker-infos {
     transform: translateX(-50%);
     z-index: 2; */
     /* max-width: 350px; */
+    font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos #tracker {
