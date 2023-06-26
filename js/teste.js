@@ -70,7 +70,7 @@ form.addEventListener('submit', (e) => {
                 IPLocation.textContent = data.ip;
                 dataTimezone.textContent = data.location.timezone;
                 dataISP.textContent = data.isp;
-                dataLocation.textContent = `${data.location.country}, ${data.location.region}, n°dacasa`;
+                dataLocation.textContent = `${data.location.country}, ${data.location.region}, ${data.location.postalCode}`;
 
                 let latitude = data.location.lat;
                 let longitude = data.location.lng;

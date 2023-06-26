@@ -1,0 +1,71 @@
+fetch('https://geo.ipify.org/api/v2/country,city?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=8.8.8.8')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.log('An error occurred:', error);
+  });
+
+
+192.212.174.101
+
+pegar a latitude e longitute do usuario e com isso conseguir as infos da box
+
+
+
+
+let map = L.map('map')
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+const test = document.getElementById('location-infos')
+
+const IPLocation = document.querySelector('span[data-IP]')
+
+const dataTimezone = document.querySelector('[data-timezone]')
+const dataISP = document.querySelector('[data-ISP]')
+// const dataLocationCountry = document.querySelector('[data-location-country]')
+
+const dataLocation = document.querySelector('[data-location]')
+
+document.addEventListener('DOMContentLoaded', () => {
+    map.setView([40.7128, -74.0060], 20);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async function (position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+
+            map.setView([latitude, longitude], 20);
+            console.log('deu');
+
+            const apiKey = 'at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz';
+            const url = `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ip=${latitude},${longitude}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                IPLocation.textContent = data.ip
+                dataTimezone.textContent = data.location.timezone
+                dataISP.textContent = data.isp
+                dataLocation.textContent = `${data.location.country}, ${data.location.region}, ${data.location.postalCode}`
+
+                // console.log('IP Address:', ipAddress);
+                // console.log('ISP:', isp);
+                // console.log('City:', city);
+                // console.log('Country:', country);
+                // console.log('Postal Code:', postalCode);
+                // console.log('Region:', region);
+                // console.log('Timezone:', timezone);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+});
