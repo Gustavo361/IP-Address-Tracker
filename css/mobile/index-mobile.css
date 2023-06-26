@@ -9,6 +9,7 @@
     --dark-grey: hsl(0, 0%, 59%);
     --very-dark-grey: hsl(0, 0%, 17%);
 }
+
 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -26,7 +27,8 @@ header {
     background-image: url(../../images/pattern-bg-mobile.png);
     background-repeat: no-repeat;
     background-size: cover;
-    text-align: center;font-family: var('Rubik', sans-serif);
+    text-align: center;
+    font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos {
@@ -37,7 +39,8 @@ header div#tracker-infos {
     top: 3.6%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;font-family: var('Rubik', sans-serif);
+    z-index: 2;
+    font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos h1 {
@@ -48,7 +51,8 @@ header div#tracker-infos h1 {
     color: white;
     /* tirar as medidas de todas as outras telas e ajustar a melhor medida vertical aqui */
     margin-top: clamp(20px, 5vw, 26px);
-    margin-bottom: clamp(20px, 5vw, 26px);font-family: var('Rubik', sans-serif);
+    margin-bottom: clamp(20px, 5vw, 26px);
+    font-family: var('Rubik', sans-serif);
 }
 
 header div#tracker-infos {
@@ -149,11 +153,13 @@ header section#location-infos article.location-info h3 {
     color: var(--dark-grey);
     font-size: clamp(11px, 2vw, 16px);
     font-weight: var(--weight-regular);
+    font-family: var('Rubik', sans-serif);
 }
 
 header section#location-infos article.location-info span {
     font-weight: var(--weight-medium);
     font-size: clamp(16px, 2.5vw, 20px);
+    font-family: var('Rubik', sans-serif);
 }
 
 div#map {
