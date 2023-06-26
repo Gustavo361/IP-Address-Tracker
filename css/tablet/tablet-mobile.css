@@ -7,10 +7,8 @@
 @media screen and (min-width:481px) and (max-width:768px) {
 
     header div#tracker-infos h1 {
-        /* margin-bottom: 14px; */
-        /* margin-bottom: 20px; */
-        margin-bottom:  clamp(14px, 2.5vw, 20px);
-        margin-top:  clamp(14px, 2.5vw, 20px);
+        margin-top: clamp(14px, 2.5vw, 20px);
+        margin-bottom: clamp(14px, 2.5vw, 20px);
     }
 
     header div#tracker-infos {
@@ -31,23 +29,17 @@
     }
 
     header section#location-infos {
-        /* height: 100px; */
-        padding: 2.5%;
-        padding-top: 3%;
-        padding-bottom: 3%;
-        padding-left: 3%;
+        padding: 3%;
         max-width: 600px;
         max-height: 220px;
         flex-wrap: wrap;
         flex-direction: initial;
         justify-content: space-between;
-        /* gap: 6px; */
     }
 
     header section#location-infos article.location-info {
         flex-basis: 48%;
         text-align: initial;
-        /* background-color: red; */
     }
 
     header section#location-infos>.location-info:nth-child(1) {

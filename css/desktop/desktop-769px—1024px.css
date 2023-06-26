@@ -5,10 +5,8 @@
     }
 
     header div#tracker-infos h1 {
-        /* margin-top: 32px;
-        margin-bottom: 32px; */
-        margin-top: clamp(20px, 32px, 100%); /*ate 1023*/
-        margin-bottom: clamp(20px, 32px, 100%); /*ate 1023*/
+        /* margin-top: clamp(20px, 32px, 100%);
+        margin-bottom: clamp(20px, 32px, 100%); */
         margin-bottom:  clamp(14px, 2.5vw, 20px);
         margin-top:  clamp(14px, 2.5vw, 20px);
     }
@@ -28,7 +26,6 @@
 
     header section#location-infos {
         max-width: 850px;
-        /* padding: 3%; */
         padding: 2% 1%;
         flex-direction: row;
         align-items: flex-start;
@@ -59,9 +56,6 @@
     header div#tracker-infos h1 {
         margin-top: clamp(22px, 5vw, 26px);
         margin-bottom: clamp(22px, 5vw, 26px);
-
-        /* margin-top: clamp(20px, 32px, 100%);
-        margin-bottom: clamp(20px, 32px, 100%); */
     }
 
     header div#tracker-infos #tracker {
