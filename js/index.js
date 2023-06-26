@@ -1,5 +1,5 @@
 
-// ----------------------------------------
+// ---------------------------------------- mapa todo funcuional no local mas sem icone no remoto
 // document.addEventListener('DOMContentLoaded', function () {
 
 //   if (navigator.geolocation) {
@@ -22,6 +22,7 @@
 
 //         let customIcon = L.icon({
 //           iconUrl: '../images/icon-location.svg',
+//           // iconUrl: 'images/icon-location.svg',
 //           iconSize: [32, 40],
 //           iconAnchor: [10, 41],
 //           popupAnchor: [2, -40]
@@ -48,6 +49,44 @@
 
 // });
 // ----------------------------------------
+// teste com async da funcao acima
+
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    console.log("Latitude:", latitude);
+    console.log("Longitude:", longitude);
+
+    let map = L.map('map').setView([latitude, longitude], 20);
+    let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
+    let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    let customIcon = L.icon({
+      iconUrl: '../images/icon-location.svg',
+      iconSize: [32, 40],
+      iconAnchor: [10, 41],
+      popupAnchor: [2, -40]
+    });
+
+    L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
+
+    zoomInButton.tabIndex = 3;
+    zoomOutButton.tabIndex = 4;
+  } catch (error) {
+    console.log("Ocorreu um erro ao obter a localização:", error);
+    let map = L.map('map').setView([40.7128, -74.0060], 13);
+  }
+});
 
 
 document.addEventListener('DOMContentLoaded', async function () {
