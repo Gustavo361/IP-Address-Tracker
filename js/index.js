@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     zoomOutButton.tabIndex = 4;
   } catch (error) {
     console.log("Ocorreu um erro ao obter a localização:", error);
-    let map = L.map('map').setView([40.7128, -74.0060], 13);
+    // let map = L.map('map').setView([40.7128, -74.0060], 13);
+    map.setView([40.7128, -74.0060], 13);
   }
 });
 
@@ -97,7 +98,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     console.log("Latitude:", latitude);
     console.log("Longitude:", longitude);
 
-    let map = L.map('map').setView([latitude, longitude], 20);
+    // let map = L.map('map').setView([latitude, longitude], 20);
+    map.setView([latitude, longitude], 20);
     let zoomInButton = document.querySelector('.leaflet-control-zoom-in');
     let zoomOutButton = document.querySelector('.leaflet-control-zoom-out');
 
@@ -383,7 +385,7 @@ const form = document.querySelector('#tracker');
 //   }
 // });
 
-
+// // submit q funciona abaixo
 form.addEventListener('submit', (e) => {
   const trackButton = document.querySelector('#tracker-infos [data-track-input]');
   e.preventDefault(); // Evita o envio padrão do formulário
@@ -406,24 +408,61 @@ form.addEventListener('submit', (e) => {
     TIMEZONE.
     LOCATION.
     */
-    fetch(`https://geo.ipify.org/api/v2/country?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=${trackButtonValue}`)
+    // fetch(`https://geo.ipify.org/api/v2/country?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=${trackButtonValue}`)
+    //..............feych q funciona pro ip abaixo
+    // fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=${trackButtonValue}`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log(data)
+
+    //     IPLocation.textContent = data.ip
+    //     dataTimezone.textContent = data.location.timezone
+    //     dataISP.textContent = data.isp
+    //     dataLocation.textContent = `${data.location.country}, ${data.location.region}, n°dacasa`
+
+    //     let latitude = data.location.lat
+    //     let longitude = data.location.lng
+
+
+
+    //     if (data.isp == "") {
+    //       dataISP.textContent = 'Not Available'
+    //     }
+    //   })
+    // ................ fetch q funciona pro ip acima
+
+    fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=${trackButtonValue}`)
       .then(response => response.json())
       .then(data => {
-        // console.log(data)
+        console.log(data);
 
-        IPLocation.textContent = data.ip
-        dataTimezone.textContent = data.location.timezone
-        dataISP.textContent = data.isp
-        dataLocation.textContent = `${data.location.country}, ${data.location.region}, n°dacasa`
+        IPLocation.textContent = data.ip;
+        dataTimezone.textContent = data.location.timezone;
+        dataISP.textContent = data.isp;
+        dataLocation.textContent = `${data.location.country}, ${data.location.region}, n°dacasa`;
 
-        // console.log(data.location.region)
-        // console.log(data.location.country)
-        // console.log(typeof data.isp)
+        let latitude = data.location.lat;
+        let longitude = data.location.lng;
 
         if (data.isp == "") {
-          dataISP.textContent = 'Not Available'
+          dataISP.textContent = 'Not Available';
         }
+
+        const map = L.map('map').setView([latitude, longitude], 20);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        // Atualizar o centro do mapa com as novas coordenadas
+        map.setView([latitude, longitude]);
+
+        // Atualizar a posição do marcador
+        // marker.setLatLng([latitude, longitude]);
       })
+      .catch(error => {
+        console.log('An error occurred:', error);
+      });
+
   } else if (regExDomain.test(trackButtonValue)) {
     console.log('É um domínio de site');
     /*
@@ -432,7 +471,7 @@ form.addEventListener('submit', (e) => {
     TIMEZONE
     LOCATION
     */
-    fetch(`https://geo.ipify.org/api/v2/country?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&domain=${trackButtonValue}`)
+    fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&domain=${trackButtonValue}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -450,3 +489,165 @@ form.addEventListener('submit', (e) => {
     console.log('Texto inválido');
   }
 });
+// submit q funciona acima
+
+// document.addEventListener('DOMContentLoaded', async function () {
+//   // ...
+
+//   const submitButton = document.querySelector('#tracker-infos [data-track-btn]');
+//   submitButton.addEventListener('click', handleSubmit);
+
+//   async function handleSubmit(event) {
+//     event.preventDefault();
+
+//     const input = document.querySelector('#tracker-infos [data-track-input]');
+//     const trackButtonValue = input.value.trim();
+
+//     const form = document.getElementById('tracker');
+//     const regExIP = /^(\d{1,3}\.){3}\d{1,3}$/;
+//     const regExDomain = /^[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
+
+//     if (regExIP.test(trackButtonValue)) {
+//       // Obter informações do IP
+//       try {
+//         const response = await fetch(`https://geo.ipify.org/api/v2/country?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=${trackButtonValue}`);
+//         const data = await response.json();
+
+//         IPLocation.textContent = data.ip;
+//         dataTimezone.textContent = data.location.timezone;
+//         dataISP.textContent = data.isp;
+//         dataLocation.textContent = `${data.location.country}, ${data.location.region}, n°dacasa`;
+
+//         if (data.isp == "") {
+//           dataISP.textContent = 'Not Available';
+//         }
+
+//         // Localizar o mapa
+//         const mapContainer = document.getElementById('map');
+//         mapContainer.innerHTML = ''; // Remover o mapa existente, se houver
+//         const map = L.map('map').setView([data.location.lat, data.location.lng], 20);
+//         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+//         }).addTo(map);
+//         const customIcon = L.icon({
+//           iconUrl: '../images/icon-location.svg',
+//           iconSize: [32, 40],
+//           iconAnchor: [10, 41],
+//           popupAnchor: [2, -40]
+//         });
+//         L.marker([data.location.lat, data.location.lng], { icon: customIcon }).addTo(map);
+
+//       } catch (error) {
+//         console.log("Ocorreu um erro ao obter a localização:", error);
+//         // Tratar erro ao obter informações do IP
+//       }
+
+//     } else if (regExDomain.test(trackButtonValue)) {
+//       console.log('É um domínio');
+//       // Tratar busca por domínio
+//     } else {
+//       console.log('Texto inválido');
+//       // Tratar texto inválido
+//     }
+//   }
+// });
+
+
+// document.addEventListener('DOMContentLoaded', async function () {
+//   // ...
+
+//   const submitButton = document.querySelector('#tracker-infos [data-track-btn]');
+//   submitButton.addEventListener('click', handleSubmit);
+
+//   async function handleSubmit(event) {
+//     event.preventDefault();
+
+//     const input = document.querySelector('#tracker-infos [data-track-input]');
+//     const trackButtonValue = input.value.trim();
+
+//     const form = document.getElementById('tracker');
+//     const regExIP = /^(\d{1,3}\.){3}\d{1,3}$/;
+//     const regExDomain = /^[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
+
+//     if (regExIP.test(trackButtonValue)) {
+//       // Obter informações do IP
+//       try {
+//         const response = await fetch(`https://geo.ipify.org/api/v2/country?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=${trackButtonValue}`);
+//         const data = await response.json();
+
+//         IPLocation.textContent = data.ip;
+//         dataTimezone.textContent = data.location.timezone;
+//         dataISP.textContent = data.isp;
+//         dataLocation.textContent = `${data.location.country}, ${data.location.region}, n°dacasa`;
+
+//         if (data.isp == "") {
+//           dataISP.textContent = 'Not Available';
+//         }
+
+//         // Geocodificação usando OpenCage Geocoder
+//         const geocoder = new OpenCageGeocoder({ key: 'YOUR_API_KEY' }); // Substitua YOUR_API_KEY pela sua chave de API do OpenCage Geocoder
+
+//         geocoder.geocode(trackButtonValue)
+//           .then(response => {
+//             const { lat, lng } = response.results[0].geometry;
+
+//             // Localizar o mapa
+//             const mapContainer = document.getElementById('map');
+//             mapContainer.innerHTML = ''; // Remover o mapa existente, se houver
+//             const map = L.map('map').setView([lat, lng], 20);
+//             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//               attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+//             }).addTo(map);
+//             const customIcon = L.icon({
+//               iconUrl: '../images/icon-location.svg',
+//               iconSize: [32, 40],
+//               iconAnchor: [10, 41],
+//               popupAnchor: [2, -40]
+//             });
+//             L.marker([lat, lng], { icon: customIcon }).addTo(map);
+//           })
+//           .catch(error => {
+//             console.log('Ocorreu um erro ao obter a localização:', error);
+//             // Tratar erro de geocodificação
+//           });
+
+//       } catch (error) {
+//         console.log("Ocorreu um erro ao obter a localização:", error);
+//         // Tratar erro ao obter informações do IP
+//       }
+
+//     } else if (regExDomain.test(trackButtonValue)) {
+//       console.log('É um domínio');
+//       // Tratar busca por domínio
+//     } else {
+//       console.log('Texto inválido');
+//       // Tratar texto inválido
+//     }
+//   }
+// });
+
+
+// document.addEventListener('DOMContentLoaded', () =>{
+//   fetch('https://geo.ipify.org/api/v2/country?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=192.212.174.101')
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log('Informações do país:', data);
+//     // Faça o processamento necessário com as informações do país
+//   })
+//   .catch(error => {
+//     console.log('Ocorreu um erro ao obter informações do país:', error);
+//     // Trate o erro adequadamente
+//   });
+
+// fetch('https://geo.ipify.org/api/v2/city?apiKey=at_hYXcaCAp6sLs3YXaFnfOWqYFf2KWz&ipAddress=192.212.174.101')
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log('Informações da cidade:', data);
+//     // Faça o processamento necessário com as informações da cidade
+//   })
+//   .catch(error => {
+//     console.log('Ocorreu um erro ao obter informações da cidade:', error);
+//     // Trate o erro adequadamente
+//   });
+
+// })
