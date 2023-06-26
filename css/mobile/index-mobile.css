@@ -96,7 +96,7 @@ header div#tracker-infos #tracker button {
     /* background-color: hsl(0, 0%, 17%); */
     cursor: pointer;
     background-color: var(--very-dark-grey);
-    /* background-color: red; */
+    background-color: red;
     /* font-family: var(--font-family); */
 }
 
